@@ -1,0 +1,53 @@
+﻿@model List<Blogger.Web.Models.Domain.BlogPost>
+@{
+}
+
+<partial name="_Notification" />
+
+<div class="bg-secondary bg-opacity-10 gap-2">
+    <div class="container">
+        <h1>Show all Blog Posts</h1>
+    </div>
+</div>
+
+<div class="container py-5">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Heading</th>
+                    <th>Page Title</th>
+                    <th>Tags</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var blogPost in Model)
+                {
+                    <tr>
+                        <td>@blogPost.Id</td>
+                        <td>@blogPost.Heading</td>
+                        <td>@blogPost.PageTitle</td>
+                        <td>
+                            <div class="d-flex">
+                                @foreach (var tag in blogPost.Tags)
+                                {
+                                    <span class="badge bg-secondary me-1">@tag.Name</span>
+                                }
+                            </div>
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="AdminBlogPost" asp-action="Edit" asp-route-id="@blogPost.Id" class="btn btn-dark">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Blog Post not found</p>
+    }
+</div>
